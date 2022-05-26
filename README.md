@@ -1,6 +1,6 @@
 # COVID TEST PROJECT
-I start my project from finding DB for project and I found open statistic on [owid-data](https://github.com/owid/covid-19-data) there was ```owid-covid-data.csv``` so I have to inject it to create from that DB.
-I open that file in text redactor and in first string was all names of columns what I pars and create Query for creating Table with all that DATA
+I started my project from finding DB for it and I found open statistic on [owid-data](https://github.com/owid/covid-19-data), there was ```owid-covid-data.csv``` so I have to inject it to my DB.
+I opened that file in text redactor and in first string was all names of columns, what I parsed and made Query for creating Table with everything needed for importing DATA.
 ```sql
 CREATE TABLE Covid_19 (
 iso_code VARCHAR,
@@ -72,25 +72,25 @@ excess_mortality FLOAT,
 excess_mortality_cumulative_per_million FLOAT);
 ```
 
-Before I check what type of DATA in all column so I notice there mostly ```FLOAT``` but some columns have ```VARCHAR``` and one ```DATE```
+Before I checked what type of DATA in all column and I notice there mostly ```FLOAT``` but some columns had ```VARCHAR``` and one ```DATE```
 After DB table was created I import DATA using __pgAdmin__ where I had local server. There is option when you can imprort DATA from ```.csv```
 Now I had table filled with DATA what provide ```owid-covid-data.csv```
 Then I made METABASE localhost and connect DB with METABASE.
 For my projec I decide create visualisation how new caces of COVID correlate with Deaths in my country __Ukraine__ and neighbor __Poland__ and around what time was different "waves" of COVID.
-I select DATA what I need and made Query
+I chose DATA what I need and made Query
 ```sql
-SELECT new_cases_smoothed AS NEW_REGISTERED_CACES
+SELECT new_cases_smoothed AS NEW_REGISTERED_CASES
 	,DATE
 FROM covid_19
 WHERE location = 'Ukraine'
 	AND people_vaccinated IS NOT NULL
 ``` 
 and made diagram with received data
-![UA New Caces](Screens/UA%20new%20Caces.png)
+![UA New Cases](Screens/UA%20new%20Caces.png)
 
-Then I did same to __Poland__ but for Ploland to make compare more precise I use DATE restriction becouse I notice that Ukraine stop recive DATA ```'2022-02-23'``` so I used Query 
+Then I did same to __Poland__ but for __Poland__ to make compare more precise I use DATE restriction because I noticed that __Ukraine__ stopped receive DATA since ```'2022-02-23'``` so I used Query
 ```sql 
-SELECT new_cases_smoothed AS NEW_REGISTERED_CACES
+SELECT new_cases_smoothed AS NEW_REGISTERED_CASES
 	,DATE
 FROM covid_19
 WHERE location = 'Poland'
@@ -98,7 +98,7 @@ WHERE location = 'Poland'
 	AND DATE BETWEEN '2020-01-01' AND '2022-02-23'
 ``` 
       
-and simillar diagrams with Lethal caces
+and similar diagrams with Lethal cases
 ```sql
 SELECT new_deaths_smoothed
 	,DATE
@@ -108,9 +108,9 @@ WHERE location = 'Ukraine'
 ```
 ![UA Death Graph](Screens/UA_deaths_Diagram.png)
 
-and to make it more visible I made count of "_new_" and "_lethal_" caces
+and to make it more visible I made count of "_new_" and "_lethal_" cases
 ![](Screens/Ua_PL.png)
-Now you can see that __Ukraine__ has less total caces but more lethal outcome then __Poland__.
+Now you can see that __Ukraine__ has less total cases but more lethal outcome then __Poland__.
 After this I decide make compare between continents so I start looking something simillar with population
 ```sql
 SELECT continent
@@ -119,7 +119,7 @@ FROM covid_19
 GROUP BY continent
 ```
 ![](Screens/population.png)
-I notice that Europe include 'Russia' with 140mil population and Russia not real part of Eupope part of continet so I decide remove it from recived data
+I notice that Europe include 'Russia' with 140 mil population and Russia is not real European part of continent so I decide remove it from received data
 ```sql
 SELECT continent
 	,SUM(DISTINCT population) AS Population
@@ -128,23 +128,23 @@ WHERE NOT (location = 'Russia')
 GROUP BY continent
 ```
 and now 
-* __Europe__ 604mil
-* __North America__ 595mil
+* __Europe__ 604 mil
+* __North America__ 595 mil
 
 what is more close and useful for comparing
-This time I decide use another diagram and choose what DATA I need for that
+This time I decide use another diagram and chose what DATA I need for that
 ```sql
-SELECT sum(New_Cases_Smoothed) AS Caces
+SELECT sum(New_Cases_Smoothed) AS Cases
 	,location
 FROM covid_19
 WHERE continent = 'Europe'
 	AND NOT (location IN 'Russia')
 	AND people_vaccinated IS NOT NULL
 GROUP BY location
-ORDER BY Caces DESC
+ORDER BY Cases DESC
 ```
 ![](Screens/EU_caces.png)
-You can see here the percentage of new cases in different countries and total caces as well.
+You can see here the percentage of new cases in different countries and total cases as well.
 
 Then I did count of lethal outcomes
 ![](Screens/EU_NA_Deaths.png)
