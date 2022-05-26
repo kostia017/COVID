@@ -87,7 +87,18 @@ WHERE location = 'Ukraine'
 ``` 
 and made diagram with received data
 ![UA New Caces](Screens/UA%20new%20Caces.png)
-Then I did same to __Poland__ and simillar diagrams with Lethal caces
+
+Then I did same to __Poland__ but for Ploland to make compare more precise I use DATE restriction becouse I notice that Ukraine stop recive DATA ```'2022-02-23'``` so I used Query 
+```sql 
+SELECT new_cases_smoothed AS NEW_REGISTERED_CACES
+	,DATE
+FROM covid_19
+WHERE location = 'Poland'
+	AND people_vaccinated IS NOT NULL
+	AND DATE BETWEEN '2020-01-01' AND '2022-02-23'
+``` 
+      
+and simillar diagrams with Lethal caces
 ```sql
 SELECT new_deaths_smoothed
 	,DATE
@@ -97,4 +108,50 @@ WHERE location = 'Ukraine'
 ```
 ![UA Death Graph](Screens/UA_deaths_Diagram.png)
 
-and to make it more visible I made count of _new_ and _lethal_ caces
+and to make it more visible I made count of "_new_" and "_lethal_" caces
+![](Screens/Ua_PL.png)
+Now you can see that __Ukraine__ has less total caces but more lethal outcome then __Poland__.
+After this I decide make compare between continents so I start looking something simillar with population
+```sql
+SELECT continent
+	,SUM(DISTINCT population) AS Population
+FROM covid_19
+GROUP BY continent
+```
+![](Screens/population.png)
+I notice that Europe include 'Russia' with 140mil population and Russia not real part of Eupope part of continet so I decide remove it from recived data
+```sql
+SELECT continent
+	,SUM(DISTINCT population) AS Population
+FROM covid_19
+WHERE NOT (location = 'Russia')
+GROUP BY continent
+```
+and now 
+* __Europe__ 604mil
+* __North America__ 595mil
+
+what is more close and useful for comparing
+This time I decide use another diagram and choose what DATA I need for that
+```sql
+SELECT sum(New_Cases_Smoothed) AS Caces
+	,location
+FROM covid_19
+WHERE continent = 'Europe'
+	AND NOT (location IN 'Russia')
+	AND people_vaccinated IS NOT NULL
+GROUP BY location
+ORDER BY Caces DESC
+```
+![](Screens/EU_caces.png)
+You can see here the percentage of new cases in different countries and total caces as well.
+
+Then I did count of lethal outcomes
+![](Screens/EU_NA_Deaths.png)
+
+Finaly we have this
+![](Screens/EU_NA_Final.png)
+Where we can make a conclusion:
+Europe has less lethal outcome while nearly twice as many new cases as North America.
+
+ 
