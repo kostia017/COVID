@@ -124,7 +124,7 @@ To make it more visible I displayed counts of "_new_" and "_lethal_" cases
 Now you can see that __Ukraine__ has less total cases but more lethal outcome than __Poland__.
 ## Continents COVID comparison
 I decided to compare _new_ and _lethal_ COVID cases for different continents for vaccinated people. Therefore I started looking for something similar based on the population of the continents.
-The following was used to find out this:
+These findings were found using the following:
 ```sql
 SELECT continent
     ,SUM(DISTINCT population) AS Population
@@ -161,6 +161,7 @@ As you can see on the next diagram, the percentages of new cases are shown for d
  
  
 Then I counted lethal cases:
+
 ![](Screens/EU_NA_Deaths.png)
 ### Conclusion
 Finally, we have the following diagram which shows _new_ and _lethal_ COVID cases for __Europe__ and __North America__:
