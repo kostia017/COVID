@@ -3,9 +3,9 @@
 * Comparison of new cases and lethal outcomes from COVID by regions for people after vaccination.
 * To enhance my skills of __SQL__ Quarries and visualization tools usage(__METABASE__).
  
-## Initialization
+## Introduction
  
-I started my project from finding a DB for it and I found an open statistic on [owid-data](https://github.com/owid/covid-19-data).
+I started my project by researching statistics and using a publicly available database from [owid-data](https://github.com/owid/covid-19-data).
 There was ```owid-covid-data.csv``` therefore I have to inject it to my DB.
 I opened that file in text redactor. There was all names of the columns in first string, which I parsed. Then I checked which type of DATA we had in our DB. As the result I noticed that there were  ```FLOAT``` mostly, but some columns had ```VARCHAR``` and one had ```DATE```.
 And after I made a Query for a Table creation with everything that was needed for importing DATA.
@@ -119,7 +119,7 @@ WHERE location = 'Ukraine'
 ```
 ![UA Death Graph](Screens/UA_deaths_Diagram.png)
  
-To make it more visible I displayed counts of "_new_" and "_lethal_" cases
+To make it more visible I displayed counts of "_new_" and "_lethal_" cases:
 ![](Screens/Ua_PL.png)
 Now you can see that __Ukraine__ has less total cases but more lethal outcome than __Poland__.
 ## Continents COVID comparison
@@ -140,7 +140,7 @@ SELECT continent
     ,SUM(DISTINCT population) AS Population
 FROM covid_19
 WHERE NOT (location = 'Russia')
-GROUP BY continent
+GROUP BY continent;
 ```
 As the result we have more closer and useful DATA for comparison:
 * __Europe__ 604 mil
@@ -156,7 +156,7 @@ WHERE continent = 'Europe'
     AND NOT (location IN 'Russia')
     AND people_vaccinated IS NOT NULL
 GROUP BY location
-ORDER BY Cases DESC
+ORDER BY Cases DESC;
 ```
 As you can see on the next diagram, the percentages of new cases are shown for different countries:
 ![](Screens/EU_caces.png)
