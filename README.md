@@ -124,6 +124,7 @@ To make it more visible I displayed counts of "_new_" and "_lethal_" cases
 Now you can see that __Ukraine__ has less total cases but more lethal outcome than __Poland__.
 ## Continents COVID comparison
 I decided to compare _new_ and _lethal_ COVID cases for different continents for vaccinated people. Therefore I started looking for something similar based on the population of the continents.
+
 These findings were found using the following:
 ```sql
 SELECT continent
@@ -132,6 +133,7 @@ FROM covid_19
 GROUP BY continent;
 ```
 ![](Screens/population.png)
+
 I noticed that Europe includes 'Russia' with 140 millions population and Russia is not real European part of continent so I decided to remove it from received DATA:
 ```sql
 SELECT continent
