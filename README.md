@@ -172,3 +172,5 @@ Finally, we have the following diagram which shows _new_ and _lethal_ COVID case
 Europe has less lethal cases than North America, while Europe has nearly twice as many new cases as North America.
 In my opinion it might be due to higher quality of healthcare in Europe rather than in North America.
 Take note, that all previous results were presented for vaccinated people.
+
+Final dashboard [here](COVID%20·%20Metabase%20Dashboard.pdf).
