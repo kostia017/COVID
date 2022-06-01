@@ -1,7 +1,7 @@
 # NEW and LETHAL COVID Cases Correlation
 ## Goal of my project
 * Comparison of new cases and lethal outcomes from COVID by regions for people after vaccination.
-* To enhance my skills of __SQL__ Quarries and visualization tools usage(__METABASE__).
+* To enhance my skills of __SQL__ Quarries and visualization tools usage ([METABASE](https://www.metabase.com/)).
  
 ## Introduction
  
